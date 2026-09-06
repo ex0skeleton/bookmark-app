@@ -7,7 +7,6 @@
 <title>My Bookmarks</title>
 
 <style>
-
 * {
     box-sizing: border-box;
 }
@@ -16,7 +15,7 @@ body {
     margin: 0;
     font-family: Arial, Helvetica, sans-serif;
     background: #f5f6f8;
-    color: #1f2937;
+    color: #111827;
 }
 
 button,
@@ -25,10 +24,10 @@ input {
 }
 
 /* =========================
-   LOGIN
+   AUTH SCREEN
 ========================= */
 
-.login-screen {
+.auth-screen {
     min-height: 100vh;
     display: flex;
     align-items: center;
@@ -36,55 +35,92 @@ input {
     padding: 20px;
 }
 
-.login-box {
+.auth-card {
     width: 100%;
-    max-width: 380px;
+    max-width: 400px;
     background: white;
+    border-radius: 18px;
     padding: 32px;
-    border-radius: 16px;
-    box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+    box-shadow: 0 10px 40px rgba(0,0,0,0.08);
 }
 
-.login-box h1 {
-    margin: 0 0 6px;
-    font-size: 26px;
+.auth-card h1 {
+    margin: 0;
+    font-size: 28px;
 }
 
-.login-box p {
-    margin: 0 0 25px;
+.auth-subtitle {
     color: #6b7280;
+    margin: 8px 0 25px;
     font-size: 14px;
 }
 
-.login-box input {
+.auth-tabs {
+    display: flex;
+    background: #f3f4f6;
+    padding: 4px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+
+.auth-tab {
+    flex: 1;
+    border: 0;
+    background: transparent;
+    padding: 10px;
+    border-radius: 8px;
+    cursor: pointer;
+    color: #6b7280;
+}
+
+.auth-tab.active {
+    background: white;
+    color: #111827;
+    font-weight: 600;
+    box-shadow: 0 1px 5px rgba(0,0,0,0.08);
+}
+
+.auth-input {
     width: 100%;
     padding: 13px 14px;
-    margin-bottom: 12px;
     border: 1px solid #d1d5db;
     border-radius: 9px;
+    margin-bottom: 12px;
     outline: none;
 }
 
-.login-box input:focus {
+.auth-input:focus {
     border-color: #111827;
 }
 
-.login-box button {
+.auth-button {
     width: 100%;
     padding: 13px;
-    border: none;
+    border: 0;
     border-radius: 9px;
     background: #111827;
     color: white;
-    cursor: pointer;
     font-weight: 600;
+    cursor: pointer;
 }
 
-.login-error {
-    margin-top: 13px;
-    color: #dc2626;
-    font-size: 13px;
+.auth-button:disabled {
+    opacity: 0.6;
+    cursor: default;
+}
+
+.auth-message {
     display: none;
+    margin-top: 14px;
+    font-size: 13px;
+}
+
+.auth-message.error {
+    color: #dc2626;
+}
+
+.auth-message.success {
+    color: #15803d;
 }
 
 
@@ -99,27 +135,38 @@ input {
 header {
     background: white;
     border-bottom: 1px solid #e5e7eb;
-    padding: 18px 24px;
 }
 
 .header-inner {
-    max-width: 1000px;
+    max-width: 1050px;
     margin: auto;
+    padding: 17px 20px;
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
-.logo {
+.brand {
     font-size: 21px;
     font-weight: 700;
 }
 
-.logout {
-    border: none;
-    background: none;
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.username {
+    font-size: 13px;
     color: #6b7280;
+}
+
+.logout {
+    background: transparent;
+    border: 0;
     cursor: pointer;
+    color: #6b7280;
 }
 
 .logout:hover {
@@ -127,7 +174,7 @@ header {
 }
 
 main {
-    max-width: 1000px;
+    max-width: 1050px;
     margin: auto;
     padding: 35px 20px 60px;
 }
@@ -137,16 +184,19 @@ main {
    ADD BOOKMARK
 ========================= */
 
-.add-box {
+.add-area {
     background: white;
-    padding: 20px;
-    border-radius: 14px;
-    box-shadow: 0 3px 15px rgba(0,0,0,0.04);
+    border-radius: 15px;
+    padding: 18px;
+    box-shadow: 0 3px 18px rgba(0,0,0,0.04);
+}
+
+.add-row {
     display: flex;
     gap: 10px;
 }
 
-.add-box input {
+.url-input {
     flex: 1;
     padding: 14px 15px;
     border: 1px solid #d1d5db;
@@ -154,23 +204,44 @@ main {
     outline: none;
 }
 
-.add-box input:focus {
+.url-input:focus {
     border-color: #111827;
 }
 
-.add-box button {
-    padding: 0 24px;
-    border: none;
+.category-input {
+    width: 180px;
+    padding: 14px;
+    border: 1px solid #d1d5db;
+    border-radius: 9px;
+    outline: none;
+}
+
+.save-button {
+    border: 0;
     background: #111827;
     color: white;
+    padding: 0 24px;
     border-radius: 9px;
     cursor: pointer;
     font-weight: 600;
 }
 
-.add-box button:disabled {
+.save-button:disabled {
     opacity: 0.6;
-    cursor: default;
+}
+
+.app-message {
+    display: none;
+    margin-top: 12px;
+    font-size: 13px;
+}
+
+.app-message.success {
+    color: #15803d;
+}
+
+.app-message.error {
+    color: #dc2626;
 }
 
 
@@ -179,48 +250,25 @@ main {
 ========================= */
 
 .toolbar {
-    margin-top: 28px;
     display: flex;
-    gap: 12px;
     align-items: center;
+    gap: 14px;
+    margin-top: 28px;
 }
 
-.search {
+.search-input {
     flex: 1;
-}
-
-.search input {
-    width: 100%;
     padding: 12px 14px;
     border: 1px solid #d1d5db;
-    background: white;
     border-radius: 9px;
+    background: white;
     outline: none;
 }
 
 .count {
     color: #6b7280;
-    font-size: 14px;
+    font-size: 13px;
     white-space: nowrap;
-}
-
-
-/* =========================
-   STATUS
-========================= */
-
-.message {
-    margin-top: 14px;
-    font-size: 14px;
-    display: none;
-}
-
-.message.success {
-    color: #15803d;
-}
-
-.message.error {
-    color: #dc2626;
 }
 
 
@@ -229,9 +277,9 @@ main {
 ========================= */
 
 .bookmarks {
-    margin-top: 18px;
     display: grid;
     gap: 10px;
+    margin-top: 16px;
 }
 
 .bookmark {
@@ -257,16 +305,16 @@ main {
     flex-shrink: 0;
 }
 
-.bookmark-info {
-    min-width: 0;
+.bookmark-main {
     flex: 1;
+    min-width: 0;
 }
 
 .bookmark-title {
-    color: #111827;
+    display: block;
     font-weight: 600;
     text-decoration: none;
-    display: block;
+    color: #111827;
     margin-bottom: 4px;
 }
 
@@ -275,36 +323,26 @@ main {
 }
 
 .bookmark-url {
-    color: #6b7280;
     font-size: 13px;
-    white-space: nowrap;
+    color: #6b7280;
     overflow: hidden;
     text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 .category {
     font-size: 12px;
     background: #f3f4f6;
-    color: #4b5563;
-    padding: 5px 8px;
     border-radius: 6px;
+    padding: 6px 9px;
+    color: #4b5563;
 }
 
-.empty {
-    text-align: center;
-    padding: 50px 20px;
-    color: #9ca3af;
-}
-
-
-/* =========================
-   LOADING
-========================= */
-
+.empty,
 .loading {
     text-align: center;
-    padding: 40px;
-    color: #6b7280;
+    color: #9ca3af;
+    padding: 50px 20px;
 }
 
 
@@ -312,77 +350,110 @@ main {
    MOBILE
 ========================= */
 
-@media (max-width: 600px) {
+@media (max-width: 650px) {
 
-    header {
-        padding: 16px;
-    }
-
-    main {
-        padding: 22px 14px 50px;
-    }
-
-    .add-box {
+    .add-row {
         flex-direction: column;
     }
 
-    .add-box button {
+    .category-input {
+        width: 100%;
+    }
+
+    .save-button {
         padding: 13px;
     }
 
     .toolbar {
-        align-items: stretch;
         flex-direction: column;
+        align-items: stretch;
     }
 
     .category {
         display: none;
     }
-}
 
+    .username {
+        display: none;
+    }
+
+    main {
+        padding: 22px 14px 50px;
+    }
+}
 </style>
 </head>
-
 
 <body>
 
 
-<!-- =========================
-     LOGIN SCREEN
-========================= -->
+<!-- =========================================
+     LOGIN / SIGNUP
+========================================= -->
 
-<div class="login-screen" id="loginScreen">
+<div class="auth-screen" id="authScreen">
 
-    <div class="login-box">
+    <div class="auth-card">
 
         <h1>My Bookmarks</h1>
 
-        <p>Sign in to access your bookmark collection.</p>
+        <div class="auth-subtitle">
+            Your bookmarks, available anywhere.
+        </div>
+
+        <div class="auth-tabs">
+
+            <button
+                class="auth-tab active"
+                id="loginTab"
+            >
+                Login
+            </button>
+
+            <button
+                class="auth-tab"
+                id="signupTab"
+            >
+                Sign Up
+            </button>
+
+        </div>
 
         <input
-            id="username"
+            class="auth-input"
+            id="usernameInput"
             type="text"
             placeholder="Username"
             autocomplete="username"
         >
 
         <input
-            id="password"
+            class="auth-input"
+            id="passwordInput"
             type="password"
             placeholder="Password"
             autocomplete="current-password"
         >
 
-        <button id="loginButton">
+        <input
+            class="auth-input"
+            id="confirmPasswordInput"
+            type="password"
+            placeholder="Confirm password"
+            style="display:none;"
+        >
+
+        <button
+            class="auth-button"
+            id="authButton"
+        >
             Login
         </button>
 
         <div
-            class="login-error"
-            id="loginError"
-        >
-            Incorrect username or password.
-        </div>
+            class="auth-message"
+            id="authMessage"
+        ></div>
 
     </div>
 
@@ -390,9 +461,9 @@ main {
 
 
 
-<!-- =========================
-     APPLICATION
-========================= -->
+<!-- =========================================
+     BOOKMARK APP
+========================================= -->
 
 <div class="app" id="app">
 
@@ -400,16 +471,25 @@ main {
 
         <div class="header-inner">
 
-            <div class="logo">
+            <div class="brand">
                 My Bookmarks
             </div>
 
-            <button
-                class="logout"
-                id="logoutButton"
-            >
-                Logout
-            </button>
+            <div class="header-right">
+
+                <div
+                    class="username"
+                    id="currentUsername"
+                ></div>
+
+                <button
+                    class="logout"
+                    id="logoutButton"
+                >
+                    Logout
+                </button>
+
+            </div>
 
         </div>
 
@@ -418,43 +498,51 @@ main {
 
     <main>
 
-        <!-- ADD BOOKMARK -->
+        <div class="add-area">
 
-        <div class="add-box">
+            <div class="add-row">
 
-            <input
-                id="urlInput"
-                type="text"
-                placeholder="Paste a website address..."
-                autocomplete="off"
-            >
+                <input
+                    class="url-input"
+                    id="urlInput"
+                    type="text"
+                    placeholder="Paste website address..."
+                    autocomplete="off"
+                >
 
-            <button id="saveButton">
-                + Save
-            </button>
+                <input
+                    class="category-input"
+                    id="categoryInput"
+                    type="text"
+                    placeholder="Category"
+                    autocomplete="off"
+                >
+
+                <button
+                    class="save-button"
+                    id="saveButton"
+                >
+                    + Save
+                </button>
+
+            </div>
+
+            <div
+                class="app-message"
+                id="appMessage"
+            ></div>
 
         </div>
 
 
-        <div
-            class="message"
-            id="message"
-        ></div>
-
-
-        <!-- SEARCH -->
-
         <div class="toolbar">
 
-            <div class="search">
-
-                <input
-                    id="searchInput"
-                    type="text"
-                    placeholder="Search bookmarks..."
-                >
-
-            </div>
+            <input
+                class="search-input"
+                id="searchInput"
+                type="text"
+                placeholder="Search bookmarks..."
+            >
 
             <div
                 class="count"
@@ -464,18 +552,10 @@ main {
         </div>
 
 
-        <!-- BOOKMARK LIST -->
-
         <div
             class="bookmarks"
             id="bookmarkList"
-        >
-
-            <div class="loading">
-                Loading bookmarks...
-            </div>
-
-        </div>
+        ></div>
 
     </main>
 
@@ -486,47 +566,77 @@ main {
 <script>
 
 /* ==========================================
-   CONFIGURATION
+   API
 ========================================== */
 
 const API_URL =
-    "https://bookmark-api.exoskel-dev.workers.dev/";
+    "https://bookmark-api.exoskel-dev.workers.dev";
 
 
 /* ==========================================
    STATE
 ========================================== */
 
-let bookmarks = [];
+let authMode = "login";
 
-let username = "";
-let password = "";
+let token =
+    localStorage.getItem(
+        "bookmark_token"
+    ) || "";
+
+let currentUser =
+    localStorage.getItem(
+        "bookmark_username"
+    ) || "";
+
+let bookmarks = [];
 
 
 /* ==========================================
    ELEMENTS
 ========================================== */
 
-const loginScreen =
-    document.getElementById("loginScreen");
+const authScreen =
+    document.getElementById("authScreen");
 
 const app =
     document.getElementById("app");
 
+const loginTab =
+    document.getElementById("loginTab");
+
+const signupTab =
+    document.getElementById("signupTab");
+
 const usernameInput =
-    document.getElementById("username");
+    document.getElementById("usernameInput");
 
 const passwordInput =
-    document.getElementById("password");
+    document.getElementById("passwordInput");
 
-const loginButton =
-    document.getElementById("loginButton");
+const confirmPasswordInput =
+    document.getElementById(
+        "confirmPasswordInput"
+    );
 
-const loginError =
-    document.getElementById("loginError");
+const authButton =
+    document.getElementById("authButton");
+
+const authMessage =
+    document.getElementById("authMessage");
+
+const currentUsernameElement =
+    document.getElementById(
+        "currentUsername"
+    );
 
 const urlInput =
     document.getElementById("urlInput");
+
+const categoryInput =
+    document.getElementById(
+        "categoryInput"
+    );
 
 const saveButton =
     document.getElementById("saveButton");
@@ -534,28 +644,204 @@ const saveButton =
 const searchInput =
     document.getElementById("searchInput");
 
-const bookmarkList =
-    document.getElementById("bookmarkList");
-
 const bookmarkCount =
-    document.getElementById("bookmarkCount");
+    document.getElementById(
+        "bookmarkCount"
+    );
 
-const message =
-    document.getElementById("message");
+const bookmarkList =
+    document.getElementById(
+        "bookmarkList"
+    );
+
+const appMessage =
+    document.getElementById("appMessage");
 
 const logoutButton =
-    document.getElementById("logoutButton");
+    document.getElementById(
+        "logoutButton"
+    );
 
 
 /* ==========================================
-   AUTH HEADER
+   AUTH TABS
 ========================================== */
 
-function getAuthHeader() {
+function setAuthMode(mode) {
 
-    return "Basic " +
-        btoa(username + ":" + password);
+    authMode = mode;
 
+    clearAuthMessage();
+
+    if (mode === "login") {
+
+        loginTab.classList.add("active");
+        signupTab.classList.remove("active");
+
+        confirmPasswordInput.style.display =
+            "none";
+
+        authButton.textContent =
+            "Login";
+
+        passwordInput.autocomplete =
+            "current-password";
+
+    } else {
+
+        signupTab.classList.add("active");
+        loginTab.classList.remove("active");
+
+        confirmPasswordInput.style.display =
+            "block";
+
+        authButton.textContent =
+            "Create Account";
+
+        passwordInput.autocomplete =
+            "new-password";
+
+    }
+}
+
+
+loginTab.addEventListener(
+    "click",
+    () => setAuthMode("login")
+);
+
+
+signupTab.addEventListener(
+    "click",
+    () => setAuthMode("signup")
+);
+
+
+/* ==========================================
+   AUTH SUBMIT
+========================================== */
+
+async function submitAuth() {
+
+    const username =
+        usernameInput.value
+            .trim()
+            .toLowerCase();
+
+    const password =
+        passwordInput.value;
+
+    const confirmPassword =
+        confirmPasswordInput.value;
+
+
+    clearAuthMessage();
+
+
+    if (!username || !password) {
+
+        showAuthMessage(
+            "Enter your username and password.",
+            "error"
+        );
+
+        return;
+    }
+
+
+    if (
+        authMode === "signup" &&
+        password !== confirmPassword
+    ) {
+
+        showAuthMessage(
+            "Passwords do not match.",
+            "error"
+        );
+
+        return;
+    }
+
+
+    authButton.disabled = true;
+
+    authButton.textContent =
+        authMode === "signup"
+            ? "Creating..."
+            : "Signing in...";
+
+
+    try {
+
+        if (authMode === "signup") {
+
+            const signupResponse =
+                await fetch(
+                    API_URL + "/signup",
+                    {
+                        method: "POST",
+
+                        headers: {
+                            "Content-Type":
+                                "application/json"
+                        },
+
+                        body: JSON.stringify({
+                            username,
+                            password
+                        })
+                    }
+                );
+
+
+            const signupData =
+                await signupResponse.json();
+
+
+            if (!signupResponse.ok) {
+
+                throw new Error(
+                    signupData.error ||
+                    "Could not create account"
+                );
+            }
+
+
+            /*
+             Account created.
+             Now automatically login.
+            */
+
+            await performLogin(
+                username,
+                password
+            );
+
+        } else {
+
+            await performLogin(
+                username,
+                password
+            );
+
+        }
+
+    } catch (error) {
+
+        showAuthMessage(
+            error.message,
+            "error"
+        );
+
+    } finally {
+
+        authButton.disabled = false;
+
+        authButton.textContent =
+            authMode === "signup"
+                ? "Create Account"
+                : "Login";
+    }
 }
 
 
@@ -563,102 +849,67 @@ function getAuthHeader() {
    LOGIN
 ========================================== */
 
-async function login() {
+async function performLogin(
+    username,
+    password
+) {
 
-    username =
-        usernameInput.value.trim();
-
-    password =
-        passwordInput.value;
-
-    if (!username || !password) {
-
-        showLoginError(
-            "Enter username and password."
-        );
-
-        return;
-    }
-
-    loginButton.disabled = true;
-
-    loginButton.textContent =
-        "Signing in...";
-
-    loginError.style.display =
-        "none";
-
-
-    try {
-
-        const response =
-            await fetch(API_URL, {
-
-                method: "GET",
+    const response =
+        await fetch(
+            API_URL + "/login",
+            {
+                method: "POST",
 
                 headers: {
-                    "Authorization":
-                        getAuthHeader()
-                }
+                    "Content-Type":
+                        "application/json"
+                },
 
-            });
-
-
-        if (!response.ok) {
-
-            throw new Error(
-                "Invalid login"
-            );
-
-        }
-
-
-        bookmarks =
-            await response.json();
-
-
-        /*
-         Store login only for this
-         browser tab/session.
-
-         Password is NOT stored in
-         GitHub or in the HTML file.
-        */
-
-        sessionStorage.setItem(
-            "bookmark_username",
-            username
-        );
-
-        sessionStorage.setItem(
-            "bookmark_password",
-            password
+                body: JSON.stringify({
+                    username,
+                    password
+                })
+            }
         );
 
 
-        openApp();
+    const data =
+        await response.json();
 
-        renderBookmarks();
 
+    if (!response.ok) {
 
-    } catch (error) {
-
-        username = "";
-        password = "";
-
-        showLoginError(
-            "Incorrect username or password."
+        throw new Error(
+            data.error ||
+            "Login failed"
         );
-
-    } finally {
-
-        loginButton.disabled = false;
-
-        loginButton.textContent =
-            "Login";
-
     }
 
+
+    token =
+        data.token;
+
+    currentUser =
+        data.user.username;
+
+
+    localStorage.setItem(
+        "bookmark_token",
+        token
+    );
+
+    localStorage.setItem(
+        "bookmark_username",
+        currentUser
+    );
+
+
+    passwordInput.value = "";
+
+    confirmPasswordInput.value = "";
+
+
+    await openApp();
 }
 
 
@@ -666,31 +917,23 @@ async function login() {
    OPEN APP
 ========================================== */
 
-function openApp() {
+async function openApp() {
 
-    loginScreen.style.display =
+    authScreen.style.display =
         "none";
 
     app.style.display =
         "block";
 
+
+    currentUsernameElement.textContent =
+        currentUser;
+
+
+    await loadBookmarks();
+
+
     urlInput.focus();
-
-}
-
-
-/* ==========================================
-   LOGIN ERROR
-========================================== */
-
-function showLoginError(text) {
-
-    loginError.textContent =
-        text;
-
-    loginError.style.display =
-        "block";
-
 }
 
 
@@ -707,14 +950,120 @@ async function loadBookmarks() {
     try {
 
         const response =
-            await fetch(API_URL, {
-
-                headers: {
-                    "Authorization":
-                        getAuthHeader()
+            await fetch(
+                API_URL + "/bookmarks",
+                {
+                    headers: {
+                        "Authorization":
+                            "Bearer " + token
+                    }
                 }
+            );
 
-            });
+
+        if (response.status === 401) {
+
+            logout();
+
+            return;
+        }
+
+
+        const data =
+            await response.json();
+
+
+        if (!response.ok) {
+
+            throw new Error(
+                data.error ||
+                "Unable to load bookmarks"
+            );
+        }
+
+
+        bookmarks =
+            data.bookmarks || [];
+
+
+        renderBookmarks();
+
+    } catch (error) {
+
+        bookmarkList.innerHTML =
+            '<div class="empty">Unable to load bookmarks.</div>';
+
+        showAppMessage(
+            error.message,
+            "error"
+        );
+    }
+}
+
+
+/* ==========================================
+   SAVE BOOKMARK
+========================================== */
+
+async function saveBookmark() {
+
+    const url =
+        urlInput.value.trim();
+
+    let category =
+        categoryInput.value.trim();
+
+
+    if (!url) {
+
+        showAppMessage(
+            "Enter a website address.",
+            "error"
+        );
+
+        return;
+    }
+
+
+    if (!category) {
+
+        category =
+            "Uncategorized";
+    }
+
+
+    saveButton.disabled = true;
+
+    saveButton.textContent =
+        "Saving...";
+
+
+    try {
+
+        const response =
+            await fetch(
+                API_URL + "/bookmarks",
+                {
+                    method: "POST",
+
+                    headers: {
+                        "Authorization":
+                            "Bearer " + token,
+
+                        "Content-Type":
+                            "application/json"
+                    },
+
+                    body: JSON.stringify({
+                        url,
+                        category
+                    })
+                }
+            );
+
+
+        const data =
+            await response.json();
 
 
         if (response.status === 401) {
@@ -728,101 +1077,20 @@ async function loadBookmarks() {
         if (!response.ok) {
 
             throw new Error(
-                "Could not load bookmarks"
-            );
-
-        }
-
-
-        bookmarks =
-            await response.json();
-
-
-        renderBookmarks();
-
-
-    } catch (error) {
-
-        bookmarkList.innerHTML =
-            '<div class="empty">Unable to load bookmarks.</div>';
-
-    }
-
-}
-
-
-/* ==========================================
-   SAVE BOOKMARK
-========================================== */
-
-async function saveBookmark() {
-
-    let url =
-        urlInput.value.trim();
-
-
-    if (!url) {
-
-        showMessage(
-            "Enter a website address.",
-            "error"
-        );
-
-        return;
-    }
-
-
-    saveButton.disabled = true;
-
-    saveButton.textContent =
-        "Saving...";
-
-
-    try {
-
-        const response =
-            await fetch(API_URL, {
-
-                method: "POST",
-
-                headers: {
-
-                    "Authorization":
-                        getAuthHeader(),
-
-                    "Content-Type":
-                        "application/json"
-
-                },
-
-                body: JSON.stringify({
-                    url: url
-                })
-
-            });
-
-
-        const result =
-            await response.json();
-
-
-        if (!response.ok) {
-
-            throw new Error(
-                result.error ||
+                data.error ||
                 "Could not save bookmark"
             );
-
         }
 
 
         bookmarks.unshift(
-            result.bookmark
+            data.bookmark
         );
 
 
         urlInput.value = "";
 
+        categoryInput.value = "";
 
         searchInput.value = "";
 
@@ -830,7 +1098,7 @@ async function saveBookmark() {
         renderBookmarks();
 
 
-        showMessage(
+        showAppMessage(
             "Bookmark saved.",
             "success"
         );
@@ -838,10 +1106,9 @@ async function saveBookmark() {
 
         urlInput.focus();
 
-
     } catch (error) {
 
-        showMessage(
+        showAppMessage(
             error.message,
             "error"
         );
@@ -852,14 +1119,12 @@ async function saveBookmark() {
 
         saveButton.textContent =
             "+ Save";
-
     }
-
 }
 
 
 /* ==========================================
-   RENDER
+   RENDER BOOKMARKS
 ========================================== */
 
 function renderBookmarks() {
@@ -871,38 +1136,33 @@ function renderBookmarks() {
 
 
     const filtered =
-        bookmarks.filter(bookmark => {
+        bookmarks.filter(
+            bookmark => {
 
-            const title =
-                bookmark.title || "";
-
-            const url =
-                bookmark.url || "";
-
-            const category =
-                bookmark.category || "";
-
-            const tags =
-                Array.isArray(bookmark.tags)
-                    ? bookmark.tags.join(" ")
-                    : "";
-
-            const combined =
-                (
-                    title +
-                    " " +
-                    url +
-                    " " +
-                    category +
-                    " " +
-                    tags
-                )
-                .toLowerCase();
+                const searchable =
+                    (
+                        (bookmark.title || "") +
+                        " " +
+                        (bookmark.url || "") +
+                        " " +
+                        (bookmark.category || "") +
+                        " " +
+                        (
+                            Array.isArray(
+                                bookmark.tags
+                            )
+                                ? bookmark.tags.join(" ")
+                                : ""
+                        )
+                    )
+                    .toLowerCase();
 
 
-            return combined.includes(search);
-
-        });
+                return searchable.includes(
+                    search
+                );
+            }
+        );
 
 
     bookmarkCount.textContent =
@@ -924,65 +1184,73 @@ function renderBookmarks() {
 
 
     bookmarkList.innerHTML =
-        filtered.map(bookmark => {
+        filtered.map(
+            bookmark => {
 
-            const safeTitle =
-                escapeHTML(
-                    bookmark.title ||
-                    getDomain(bookmark.url)
-                );
-
-            const safeUrl =
-                escapeHTML(bookmark.url);
-
-            const category =
-                escapeHTML(
-                    bookmark.category ||
-                    "Uncategorized"
-                );
-
-            const favicon =
-                getFavicon(bookmark.url);
+                const title =
+                    escapeHTML(
+                        bookmark.title ||
+                        getDomain(
+                            bookmark.url
+                        )
+                    );
 
 
-            return `
+                const url =
+                    escapeHTML(
+                        bookmark.url
+                    );
 
-                <div class="bookmark">
 
-                    <img
-                        class="favicon"
-                        src="${favicon}"
-                        alt=""
-                        onerror="this.style.visibility='hidden'"
-                    >
+                const category =
+                    escapeHTML(
+                        bookmark.category ||
+                        "Uncategorized"
+                    );
 
-                    <div class="bookmark-info">
 
-                        <a
-                            class="bookmark-title"
-                            href="${safeUrl}"
-                            target="_blank"
-                            rel="noopener noreferrer"
+                const favicon =
+                    getFavicon(
+                        bookmark.url
+                    );
+
+
+                return `
+                    <div class="bookmark">
+
+                        <img
+                            class="favicon"
+                            src="${favicon}"
+                            alt=""
+                            onerror="this.style.visibility='hidden'"
                         >
-                            ${safeTitle}
-                        </a>
 
-                        <div class="bookmark-url">
-                            ${safeUrl}
+                        <div class="bookmark-main">
+
+                            <a
+                                class="bookmark-title"
+                                href="${url}"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                            >
+                                ${title}
+                            </a>
+
+                            <div class="bookmark-url">
+                                ${url}
+                            </div>
+
+                        </div>
+
+                        <div class="category">
+                            ${category}
                         </div>
 
                     </div>
+                `;
 
-                    <div class="category">
-                        ${category}
-                    </div>
-
-                </div>
-
-            `;
-
-        }).join("");
-
+            }
+        ).join("");
 }
 
 
@@ -994,6 +1262,43 @@ searchInput.addEventListener(
     "input",
     renderBookmarks
 );
+
+
+/* ==========================================
+   LOGOUT
+========================================== */
+
+function logout() {
+
+    localStorage.removeItem(
+        "bookmark_token"
+    );
+
+    localStorage.removeItem(
+        "bookmark_username"
+    );
+
+
+    token = "";
+    currentUser = "";
+    bookmarks = [];
+
+
+    app.style.display =
+        "none";
+
+    authScreen.style.display =
+        "flex";
+
+
+    usernameInput.value = "";
+    passwordInput.value = "";
+    confirmPasswordInput.value = "";
+
+    setAuthMode("login");
+
+    usernameInput.focus();
+}
 
 
 /* ==========================================
@@ -1017,9 +1322,7 @@ function getFavicon(url) {
     } catch {
 
         return "";
-
     }
-
 }
 
 
@@ -1038,9 +1341,7 @@ function getDomain(url) {
     } catch {
 
         return url;
-
     }
-
 }
 
 
@@ -1056,75 +1357,69 @@ function escapeHTML(text) {
         .replaceAll(">", "&gt;")
         .replaceAll('"', "&quot;")
         .replaceAll("'", "&#039;");
-
 }
 
 
 /* ==========================================
-   MESSAGE
+   MESSAGES
 ========================================== */
 
-let messageTimer;
+function showAuthMessage(
+    text,
+    type
+) {
 
-function showMessage(text, type) {
-
-    clearTimeout(messageTimer);
-
-    message.textContent =
+    authMessage.textContent =
         text;
 
-    message.className =
-        "message " + type;
+    authMessage.className =
+        "auth-message " + type;
 
-    message.style.display =
+    authMessage.style.display =
+        "block";
+}
+
+
+function clearAuthMessage() {
+
+    authMessage.style.display =
+        "none";
+}
+
+
+let appMessageTimer;
+
+
+function showAppMessage(
+    text,
+    type
+) {
+
+    clearTimeout(
+        appMessageTimer
+    );
+
+
+    appMessage.textContent =
+        text;
+
+    appMessage.className =
+        "app-message " + type;
+
+    appMessage.style.display =
         "block";
 
 
-    messageTimer =
-        setTimeout(() => {
+    appMessageTimer =
+        setTimeout(
+            () => {
 
-            message.style.display =
-                "none";
+                appMessage.style.display =
+                    "none";
 
-        }, 3000);
-
-}
-
-
-/* ==========================================
-   LOGOUT
-========================================== */
-
-function logout() {
-
-    sessionStorage.removeItem(
-        "bookmark_username"
-    );
-
-    sessionStorage.removeItem(
-        "bookmark_password"
-    );
-
-    username = "";
-    password = "";
-
-    bookmarks = [];
-
-
-    app.style.display =
-        "none";
-
-    loginScreen.style.display =
-        "flex";
-
-
-    usernameInput.value = "";
-
-    passwordInput.value = "";
-
-
-    usernameInput.focus();
-
+            },
+            3000
+        );
 }
 
 
@@ -1132,9 +1427,9 @@ function logout() {
    EVENTS
 ========================================== */
 
-loginButton.addEventListener(
+authButton.addEventListener(
     "click",
-    login
+    submitAuth
 );
 
 
@@ -1142,22 +1437,25 @@ passwordInput.addEventListener(
     "keydown",
     event => {
 
-        if (event.key === "Enter") {
-            login();
-        }
+        if (
+            event.key === "Enter" &&
+            authMode === "login"
+        ) {
 
+            submitAuth();
+        }
     }
 );
 
 
-usernameInput.addEventListener(
+confirmPasswordInput.addEventListener(
     "keydown",
     event => {
 
         if (event.key === "Enter") {
-            passwordInput.focus();
-        }
 
+            submitAuth();
+        }
     }
 );
 
@@ -1173,9 +1471,9 @@ urlInput.addEventListener(
     event => {
 
         if (event.key === "Enter") {
+
             saveBookmark();
         }
-
     }
 );
 
@@ -1187,45 +1485,25 @@ logoutButton.addEventListener(
 
 
 /* ==========================================
-   RESTORE CURRENT SESSION
+   RESTORE SESSION
 ========================================== */
 
 async function restoreSession() {
 
-    const storedUsername =
-        sessionStorage.getItem(
-            "bookmark_username"
-        );
-
-    const storedPassword =
-        sessionStorage.getItem(
-            "bookmark_password"
-        );
-
-
     if (
-        storedUsername &&
-        storedPassword
+        token &&
+        currentUser
     ) {
 
-        username =
-            storedUsername;
+        await openApp();
 
-        password =
-            storedPassword;
+    } else {
 
+        authScreen.style.display =
+            "flex";
 
-        loginScreen.style.display =
-            "none";
-
-        app.style.display =
-            "block";
-
-
-        await loadBookmarks();
-
+        usernameInput.focus();
     }
-
 }
 
 
