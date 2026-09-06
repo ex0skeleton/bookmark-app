@@ -1,0 +1,1237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>My Bookmarks</title>
+
+<style>
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    background: #f5f6f8;
+    color: #1f2937;
+}
+
+button,
+input {
+    font: inherit;
+}
+
+/* =========================
+   LOGIN
+========================= */
+
+.login-screen {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.login-box {
+    width: 100%;
+    max-width: 380px;
+    background: white;
+    padding: 32px;
+    border-radius: 16px;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+}
+
+.login-box h1 {
+    margin: 0 0 6px;
+    font-size: 26px;
+}
+
+.login-box p {
+    margin: 0 0 25px;
+    color: #6b7280;
+    font-size: 14px;
+}
+
+.login-box input {
+    width: 100%;
+    padding: 13px 14px;
+    margin-bottom: 12px;
+    border: 1px solid #d1d5db;
+    border-radius: 9px;
+    outline: none;
+}
+
+.login-box input:focus {
+    border-color: #111827;
+}
+
+.login-box button {
+    width: 100%;
+    padding: 13px;
+    border: none;
+    border-radius: 9px;
+    background: #111827;
+    color: white;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.login-error {
+    margin-top: 13px;
+    color: #dc2626;
+    font-size: 13px;
+    display: none;
+}
+
+
+/* =========================
+   APP
+========================= */
+
+.app {
+    display: none;
+}
+
+header {
+    background: white;
+    border-bottom: 1px solid #e5e7eb;
+    padding: 18px 24px;
+}
+
+.header-inner {
+    max-width: 1000px;
+    margin: auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-size: 21px;
+    font-weight: 700;
+}
+
+.logout {
+    border: none;
+    background: none;
+    color: #6b7280;
+    cursor: pointer;
+}
+
+.logout:hover {
+    color: #111827;
+}
+
+main {
+    max-width: 1000px;
+    margin: auto;
+    padding: 35px 20px 60px;
+}
+
+
+/* =========================
+   ADD BOOKMARK
+========================= */
+
+.add-box {
+    background: white;
+    padding: 20px;
+    border-radius: 14px;
+    box-shadow: 0 3px 15px rgba(0,0,0,0.04);
+    display: flex;
+    gap: 10px;
+}
+
+.add-box input {
+    flex: 1;
+    padding: 14px 15px;
+    border: 1px solid #d1d5db;
+    border-radius: 9px;
+    outline: none;
+}
+
+.add-box input:focus {
+    border-color: #111827;
+}
+
+.add-box button {
+    padding: 0 24px;
+    border: none;
+    background: #111827;
+    color: white;
+    border-radius: 9px;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.add-box button:disabled {
+    opacity: 0.6;
+    cursor: default;
+}
+
+
+/* =========================
+   TOOLBAR
+========================= */
+
+.toolbar {
+    margin-top: 28px;
+    display: flex;
+    gap: 12px;
+    align-items: center;
+}
+
+.search {
+    flex: 1;
+}
+
+.search input {
+    width: 100%;
+    padding: 12px 14px;
+    border: 1px solid #d1d5db;
+    background: white;
+    border-radius: 9px;
+    outline: none;
+}
+
+.count {
+    color: #6b7280;
+    font-size: 14px;
+    white-space: nowrap;
+}
+
+
+/* =========================
+   STATUS
+========================= */
+
+.message {
+    margin-top: 14px;
+    font-size: 14px;
+    display: none;
+}
+
+.message.success {
+    color: #15803d;
+}
+
+.message.error {
+    color: #dc2626;
+}
+
+
+/* =========================
+   BOOKMARKS
+========================= */
+
+.bookmarks {
+    margin-top: 18px;
+    display: grid;
+    gap: 10px;
+}
+
+.bookmark {
+    background: white;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    padding: 15px 17px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    transition: 0.15s;
+}
+
+.bookmark:hover {
+    border-color: #cbd5e1;
+    transform: translateY(-1px);
+}
+
+.favicon {
+    width: 34px;
+    height: 34px;
+    border-radius: 7px;
+    flex-shrink: 0;
+}
+
+.bookmark-info {
+    min-width: 0;
+    flex: 1;
+}
+
+.bookmark-title {
+    color: #111827;
+    font-weight: 600;
+    text-decoration: none;
+    display: block;
+    margin-bottom: 4px;
+}
+
+.bookmark-title:hover {
+    text-decoration: underline;
+}
+
+.bookmark-url {
+    color: #6b7280;
+    font-size: 13px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.category {
+    font-size: 12px;
+    background: #f3f4f6;
+    color: #4b5563;
+    padding: 5px 8px;
+    border-radius: 6px;
+}
+
+.empty {
+    text-align: center;
+    padding: 50px 20px;
+    color: #9ca3af;
+}
+
+
+/* =========================
+   LOADING
+========================= */
+
+.loading {
+    text-align: center;
+    padding: 40px;
+    color: #6b7280;
+}
+
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 600px) {
+
+    header {
+        padding: 16px;
+    }
+
+    main {
+        padding: 22px 14px 50px;
+    }
+
+    .add-box {
+        flex-direction: column;
+    }
+
+    .add-box button {
+        padding: 13px;
+    }
+
+    .toolbar {
+        align-items: stretch;
+        flex-direction: column;
+    }
+
+    .category {
+        display: none;
+    }
+}
+
+</style>
+</head>
+
+
+<body>
+
+
+<!-- =========================
+     LOGIN SCREEN
+========================= -->
+
+<div class="login-screen" id="loginScreen">
+
+    <div class="login-box">
+
+        <h1>My Bookmarks</h1>
+
+        <p>Sign in to access your bookmark collection.</p>
+
+        <input
+            id="username"
+            type="text"
+            placeholder="Username"
+            autocomplete="username"
+        >
+
+        <input
+            id="password"
+            type="password"
+            placeholder="Password"
+            autocomplete="current-password"
+        >
+
+        <button id="loginButton">
+            Login
+        </button>
+
+        <div
+            class="login-error"
+            id="loginError"
+        >
+            Incorrect username or password.
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<!-- =========================
+     APPLICATION
+========================= -->
+
+<div class="app" id="app">
+
+    <header>
+
+        <div class="header-inner">
+
+            <div class="logo">
+                My Bookmarks
+            </div>
+
+            <button
+                class="logout"
+                id="logoutButton"
+            >
+                Logout
+            </button>
+
+        </div>
+
+    </header>
+
+
+    <main>
+
+        <!-- ADD BOOKMARK -->
+
+        <div class="add-box">
+
+            <input
+                id="urlInput"
+                type="text"
+                placeholder="Paste a website address..."
+                autocomplete="off"
+            >
+
+            <button id="saveButton">
+                + Save
+            </button>
+
+        </div>
+
+
+        <div
+            class="message"
+            id="message"
+        ></div>
+
+
+        <!-- SEARCH -->
+
+        <div class="toolbar">
+
+            <div class="search">
+
+                <input
+                    id="searchInput"
+                    type="text"
+                    placeholder="Search bookmarks..."
+                >
+
+            </div>
+
+            <div
+                class="count"
+                id="bookmarkCount"
+            ></div>
+
+        </div>
+
+
+        <!-- BOOKMARK LIST -->
+
+        <div
+            class="bookmarks"
+            id="bookmarkList"
+        >
+
+            <div class="loading">
+                Loading bookmarks...
+            </div>
+
+        </div>
+
+    </main>
+
+</div>
+
+
+
+<script>
+
+/* ==========================================
+   CONFIGURATION
+========================================== */
+
+const API_URL =
+    "https://bookmark-api.exoskel-dev.workers.dev/";
+
+
+/* ==========================================
+   STATE
+========================================== */
+
+let bookmarks = [];
+
+let username = "";
+let password = "";
+
+
+/* ==========================================
+   ELEMENTS
+========================================== */
+
+const loginScreen =
+    document.getElementById("loginScreen");
+
+const app =
+    document.getElementById("app");
+
+const usernameInput =
+    document.getElementById("username");
+
+const passwordInput =
+    document.getElementById("password");
+
+const loginButton =
+    document.getElementById("loginButton");
+
+const loginError =
+    document.getElementById("loginError");
+
+const urlInput =
+    document.getElementById("urlInput");
+
+const saveButton =
+    document.getElementById("saveButton");
+
+const searchInput =
+    document.getElementById("searchInput");
+
+const bookmarkList =
+    document.getElementById("bookmarkList");
+
+const bookmarkCount =
+    document.getElementById("bookmarkCount");
+
+const message =
+    document.getElementById("message");
+
+const logoutButton =
+    document.getElementById("logoutButton");
+
+
+/* ==========================================
+   AUTH HEADER
+========================================== */
+
+function getAuthHeader() {
+
+    return "Basic " +
+        btoa(username + ":" + password);
+
+}
+
+
+/* ==========================================
+   LOGIN
+========================================== */
+
+async function login() {
+
+    username =
+        usernameInput.value.trim();
+
+    password =
+        passwordInput.value;
+
+    if (!username || !password) {
+
+        showLoginError(
+            "Enter username and password."
+        );
+
+        return;
+    }
+
+    loginButton.disabled = true;
+
+    loginButton.textContent =
+        "Signing in...";
+
+    loginError.style.display =
+        "none";
+
+
+    try {
+
+        const response =
+            await fetch(API_URL, {
+
+                method: "GET",
+
+                headers: {
+                    "Authorization":
+                        getAuthHeader()
+                }
+
+            });
+
+
+        if (!response.ok) {
+
+            throw new Error(
+                "Invalid login"
+            );
+
+        }
+
+
+        bookmarks =
+            await response.json();
+
+
+        /*
+         Store login only for this
+         browser tab/session.
+
+         Password is NOT stored in
+         GitHub or in the HTML file.
+        */
+
+        sessionStorage.setItem(
+            "bookmark_username",
+            username
+        );
+
+        sessionStorage.setItem(
+            "bookmark_password",
+            password
+        );
+
+
+        openApp();
+
+        renderBookmarks();
+
+
+    } catch (error) {
+
+        username = "";
+        password = "";
+
+        showLoginError(
+            "Incorrect username or password."
+        );
+
+    } finally {
+
+        loginButton.disabled = false;
+
+        loginButton.textContent =
+            "Login";
+
+    }
+
+}
+
+
+/* ==========================================
+   OPEN APP
+========================================== */
+
+function openApp() {
+
+    loginScreen.style.display =
+        "none";
+
+    app.style.display =
+        "block";
+
+    urlInput.focus();
+
+}
+
+
+/* ==========================================
+   LOGIN ERROR
+========================================== */
+
+function showLoginError(text) {
+
+    loginError.textContent =
+        text;
+
+    loginError.style.display =
+        "block";
+
+}
+
+
+/* ==========================================
+   LOAD BOOKMARKS
+========================================== */
+
+async function loadBookmarks() {
+
+    bookmarkList.innerHTML =
+        '<div class="loading">Loading bookmarks...</div>';
+
+
+    try {
+
+        const response =
+            await fetch(API_URL, {
+
+                headers: {
+                    "Authorization":
+                        getAuthHeader()
+                }
+
+            });
+
+
+        if (response.status === 401) {
+
+            logout();
+
+            return;
+        }
+
+
+        if (!response.ok) {
+
+            throw new Error(
+                "Could not load bookmarks"
+            );
+
+        }
+
+
+        bookmarks =
+            await response.json();
+
+
+        renderBookmarks();
+
+
+    } catch (error) {
+
+        bookmarkList.innerHTML =
+            '<div class="empty">Unable to load bookmarks.</div>';
+
+    }
+
+}
+
+
+/* ==========================================
+   SAVE BOOKMARK
+========================================== */
+
+async function saveBookmark() {
+
+    let url =
+        urlInput.value.trim();
+
+
+    if (!url) {
+
+        showMessage(
+            "Enter a website address.",
+            "error"
+        );
+
+        return;
+    }
+
+
+    saveButton.disabled = true;
+
+    saveButton.textContent =
+        "Saving...";
+
+
+    try {
+
+        const response =
+            await fetch(API_URL, {
+
+                method: "POST",
+
+                headers: {
+
+                    "Authorization":
+                        getAuthHeader(),
+
+                    "Content-Type":
+                        "application/json"
+
+                },
+
+                body: JSON.stringify({
+                    url: url
+                })
+
+            });
+
+
+        const result =
+            await response.json();
+
+
+        if (!response.ok) {
+
+            throw new Error(
+                result.error ||
+                "Could not save bookmark"
+            );
+
+        }
+
+
+        bookmarks.unshift(
+            result.bookmark
+        );
+
+
+        urlInput.value = "";
+
+
+        searchInput.value = "";
+
+
+        renderBookmarks();
+
+
+        showMessage(
+            "Bookmark saved.",
+            "success"
+        );
+
+
+        urlInput.focus();
+
+
+    } catch (error) {
+
+        showMessage(
+            error.message,
+            "error"
+        );
+
+    } finally {
+
+        saveButton.disabled = false;
+
+        saveButton.textContent =
+            "+ Save";
+
+    }
+
+}
+
+
+/* ==========================================
+   RENDER
+========================================== */
+
+function renderBookmarks() {
+
+    const search =
+        searchInput.value
+            .trim()
+            .toLowerCase();
+
+
+    const filtered =
+        bookmarks.filter(bookmark => {
+
+            const title =
+                bookmark.title || "";
+
+            const url =
+                bookmark.url || "";
+
+            const category =
+                bookmark.category || "";
+
+            const tags =
+                Array.isArray(bookmark.tags)
+                    ? bookmark.tags.join(" ")
+                    : "";
+
+            const combined =
+                (
+                    title +
+                    " " +
+                    url +
+                    " " +
+                    category +
+                    " " +
+                    tags
+                )
+                .toLowerCase();
+
+
+            return combined.includes(search);
+
+        });
+
+
+    bookmarkCount.textContent =
+        filtered.length +
+        (
+            filtered.length === 1
+                ? " bookmark"
+                : " bookmarks"
+        );
+
+
+    if (filtered.length === 0) {
+
+        bookmarkList.innerHTML =
+            '<div class="empty">No bookmarks found.</div>';
+
+        return;
+    }
+
+
+    bookmarkList.innerHTML =
+        filtered.map(bookmark => {
+
+            const safeTitle =
+                escapeHTML(
+                    bookmark.title ||
+                    getDomain(bookmark.url)
+                );
+
+            const safeUrl =
+                escapeHTML(bookmark.url);
+
+            const category =
+                escapeHTML(
+                    bookmark.category ||
+                    "Uncategorized"
+                );
+
+            const favicon =
+                getFavicon(bookmark.url);
+
+
+            return `
+
+                <div class="bookmark">
+
+                    <img
+                        class="favicon"
+                        src="${favicon}"
+                        alt=""
+                        onerror="this.style.visibility='hidden'"
+                    >
+
+                    <div class="bookmark-info">
+
+                        <a
+                            class="bookmark-title"
+                            href="${safeUrl}"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            ${safeTitle}
+                        </a>
+
+                        <div class="bookmark-url">
+                            ${safeUrl}
+                        </div>
+
+                    </div>
+
+                    <div class="category">
+                        ${category}
+                    </div>
+
+                </div>
+
+            `;
+
+        }).join("");
+
+}
+
+
+/* ==========================================
+   SEARCH
+========================================== */
+
+searchInput.addEventListener(
+    "input",
+    renderBookmarks
+);
+
+
+/* ==========================================
+   FAVICON
+========================================== */
+
+function getFavicon(url) {
+
+    try {
+
+        const domain =
+            new URL(url).hostname;
+
+        return (
+            "https://www.google.com/s2/favicons" +
+            "?domain=" +
+            encodeURIComponent(domain) +
+            "&sz=64"
+        );
+
+    } catch {
+
+        return "";
+
+    }
+
+}
+
+
+/* ==========================================
+   DOMAIN
+========================================== */
+
+function getDomain(url) {
+
+    try {
+
+        return new URL(url)
+            .hostname
+            .replace(/^www\./, "");
+
+    } catch {
+
+        return url;
+
+    }
+
+}
+
+
+/* ==========================================
+   ESCAPE HTML
+========================================== */
+
+function escapeHTML(text) {
+
+    return String(text)
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
+
+}
+
+
+/* ==========================================
+   MESSAGE
+========================================== */
+
+let messageTimer;
+
+function showMessage(text, type) {
+
+    clearTimeout(messageTimer);
+
+    message.textContent =
+        text;
+
+    message.className =
+        "message " + type;
+
+    message.style.display =
+        "block";
+
+
+    messageTimer =
+        setTimeout(() => {
+
+            message.style.display =
+                "none";
+
+        }, 3000);
+
+}
+
+
+/* ==========================================
+   LOGOUT
+========================================== */
+
+function logout() {
+
+    sessionStorage.removeItem(
+        "bookmark_username"
+    );
+
+    sessionStorage.removeItem(
+        "bookmark_password"
+    );
+
+    username = "";
+    password = "";
+
+    bookmarks = [];
+
+
+    app.style.display =
+        "none";
+
+    loginScreen.style.display =
+        "flex";
+
+
+    usernameInput.value = "";
+
+    passwordInput.value = "";
+
+
+    usernameInput.focus();
+
+}
+
+
+/* ==========================================
+   EVENTS
+========================================== */
+
+loginButton.addEventListener(
+    "click",
+    login
+);
+
+
+passwordInput.addEventListener(
+    "keydown",
+    event => {
+
+        if (event.key === "Enter") {
+            login();
+        }
+
+    }
+);
+
+
+usernameInput.addEventListener(
+    "keydown",
+    event => {
+
+        if (event.key === "Enter") {
+            passwordInput.focus();
+        }
+
+    }
+);
+
+
+saveButton.addEventListener(
+    "click",
+    saveBookmark
+);
+
+
+urlInput.addEventListener(
+    "keydown",
+    event => {
+
+        if (event.key === "Enter") {
+            saveBookmark();
+        }
+
+    }
+);
+
+
+logoutButton.addEventListener(
+    "click",
+    logout
+);
+
+
+/* ==========================================
+   RESTORE CURRENT SESSION
+========================================== */
+
+async function restoreSession() {
+
+    const storedUsername =
+        sessionStorage.getItem(
+            "bookmark_username"
+        );
+
+    const storedPassword =
+        sessionStorage.getItem(
+            "bookmark_password"
+        );
+
+
+    if (
+        storedUsername &&
+        storedPassword
+    ) {
+
+        username =
+            storedUsername;
+
+        password =
+            storedPassword;
+
+
+        loginScreen.style.display =
+            "none";
+
+        app.style.display =
+            "block";
+
+
+        await loadBookmarks();
+
+    }
+
+}
+
+
+restoreSession();
+
+</script>
+
+</body>
+</html>
